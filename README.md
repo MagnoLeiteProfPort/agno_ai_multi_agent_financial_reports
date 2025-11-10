@@ -9,7 +9,7 @@
 
 ---
 
-## 🚀 Quickstart — Windows Setup Guide
+## Quickstart — Windows Setup Guide
 
 This guide provides a **complete and verified setup** for running the system locally on Windows (PowerShell).
 

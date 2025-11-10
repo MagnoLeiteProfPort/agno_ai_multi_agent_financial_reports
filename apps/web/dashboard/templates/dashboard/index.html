@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agno Finance Agents – Web UI</title>
+  <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}" />
+
+  <!-- React 18 UMD -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Optional Markdown renderer -->
+  <script crossorigin src="https://unpkg.com/marked@12/marked.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- Use the new cache-busted file name -->
+  <script defer src="{% static 'dashboard/app.umd.js' %}?v=2"></script>
+</body>
+
+</html>

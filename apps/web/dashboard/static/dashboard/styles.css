@@ -1,0 +1,29 @@
+*{box-sizing:border-box}body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:#0b1020;color:#eef}
+.container{max-width:980px;margin:40px auto;padding:24px;background:#141b34;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+h1{margin-top:0;font-weight:700}
+form{display:grid;gap:12px;margin:12px 0 20px}
+input,textarea,button{padding:12px;border-radius:10px;border:1px solid #2a3358;background:#0f1630;color:#eef;font-size:16px}
+button{cursor:pointer}
+.card{background:#0f1630;border:1px solid #2a3358;border-radius:14px;padding:16px;margin-top:16px;white-space:pre-wrap}
+.footer{opacity:.8;margin-top:24px;font-size:14px}
+.prose {
+    line-height: 1.6;
+}
+
+.prose h2,
+.prose h3 {
+    margin: 1.2em 0 .4em;
+}
+
+.prose table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.prose th,
+.prose td {
+    border: 1px solid #2a3358;
+    padding: 8px;
+    text-align: left;
+}

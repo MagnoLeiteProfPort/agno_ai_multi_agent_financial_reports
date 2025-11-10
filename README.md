@@ -1,79 +1,232 @@
-# Agno Finance Agents (Equity Research Showcase)
+# 🧠 Agno Finance Agents
 
-Production-grade multi-agent (Agno) setup with memory, ReAct reasoning, self-critique, and strong guardrails. Ships a FastAPI demo for event showfloor.
+### Multi-Agent Equity Research Platform (FastAPI + Agno Framework)
 
-## Quickstart
+> **Purpose:**  
+> A production-ready **multi-agent research system** for **equity analysis**, featuring persistent memory, reasoning (ReAct pattern), self-critique, and robust guardrails.
+>
+> Built for **financial research demonstrations**, showfloor events, and AI-driven analysis pipelines.
 
-1. **Python 3.11+** and **git** installed.
-2. Create env:
+---
 
-   ```bash
-   #py -3.11 -m venv .venv && source .\.venv\Scripts\Activate.ps1
-   #pip install -U pip
-   #pip install -e .
+## 🚀 Quickstart — Windows Setup Guide
 
-   python -m venv .venv
-   .\.venv\Scripts\activate
-   pip install -r requirements.txt
+This guide provides a **complete and verified setup** for running the system locally on Windows (PowerShell).
 
-   ```
+### 🧩 1. Prerequisites
 
-3. Copy `.env.example` → `.env` and set `OPENAI_API_KEY`.
-4. Run API:
-   ```bash
-   uvicorn apps.api.main:app --host 127.0.0.1 --port 8787 --access-log --log-level debug
-   ```
-5. POST an analysis:
+Ensure the following are installed:
 
-   ```bash
-   curl -X POST http://localhost:8787/v1/health  # For health check
+- **Python 3.11+** → [Download from python.org](https://www.python.org/downloads/)  
+  ✅ _Make sure to check “Add Python to PATH” during installation._
+- **Git** → [Download from git-scm.com](https://git-scm.com/download/win)
+- **PowerShell 5+** (default on Windows 10/11)
 
-   curl -X POST http://localhost:8787/v1/analyze      -H "Content-Type: application/json"      -d '{"ticker":"BBAS3.SA","prompt":"Full deep-dive with catalysts."}'
-   ```
+> Verify installations:
+>
+> ```bash
+> python --version
+> git --version
+> ```
 
-## Architecture
+---
 
-- **Agno Teams (collaborate)** orchestrated synthesis.
-- **Persistent Memory** via Agno storage (SQLite by default).
-- **Guardrails**: PI sanitization, ticker validation, domain allow-list, step/time caps.
-- **ReAct** reasoning & self-critique via `ReasoningTools`.
+### 🧱 2. Clone the Repository
 
-## Extending
+```bash
+git clone https://github.com/<YOUR_USERNAME>/agno_finance_agents.git
+cd agno_finance_agents
+```
 
-- Add more agents in `agents/` and register in `team_orchestrator.py`.
-- Swap storage DB in `core/memory.py` (`AGNO_DB_URL`).
-- Add knowledge/RAG later via Agno vector DBs (Qdrant, Weaviate, Couchbase, etc.).
+---
 
-## License
+### 🧰 3. Create and Activate a Virtual Environment
 
-MIT
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+```
 
-## Web UI (Django + buildless React)
+Confirm activation:
 
-This repository includes a minimal Django app that serves a React single-page UI (no Node needed).  
-The UI calls the FastAPI backend at `http://localhost:8787/v1/analyze`.
+```bash
+where python
+```
 
-### Run
+Should point to:  
+`<project_path>\.venv\Scripts\python.exe`
 
-In one terminal (backend):
+---
+
+### 📦 4. Install Dependencies
+
+You have two setup options:
+
+#### (A) Install from requirements.txt
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### (B) (Optional) Editable mode for development
+
+```bash
+pip install -e .
+```
+
+---
+
+### ⚙️ 5. Environment Configuration
+
+Copy the example environment file and update your credentials:
+
+```bash
+copy .env.example .env
+```
+
+Then edit `.env` (e.g., in VS Code or Notepad) and set your **OpenAI API key**:
+
+```
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+> Other values (like database URL or environment) can remain default for local testing.
+
+---
+
+### 🧩 6. Run the FastAPI Backend (API)
+
+Start the backend service:
 
 ```bash
 uvicorn apps.api.main:app --host 127.0.0.1 --port 8787 --access-log --log-level debug
 ```
 
-In another terminal (web UI):
+Expected output:
+
+```
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8787
+```
+
+---
+
+### 🔍 7. Verify API Functionality
+
+#### Health Check:
+
+```bash
+curl -X POST http://localhost:8787/v1/health
+```
+
+#### Example Analysis Request:
+
+```bash
+curl -X POST http://localhost:8787/v1/analyze `
+     -H "Content-Type: application/json" `
+     -d '{"ticker":"BBAS3.SA","prompt":"Full deep-dive with catalysts."}'
+```
+
+---
+
+## 🧠 System Architecture Overview
+
+| Component             | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| **Agno Teams**        | Coordinates multiple AI agents for structured synthesis.              |
+| **Persistent Memory** | SQLite database stores sessions and user memories.                    |
+| **Guardrails**        | Input sanitization, ticker validation, domain allowlist, time limits. |
+| **Reasoning Layer**   | Implements ReAct reasoning and self-critique logic.                   |
+| **FastAPI Layer**     | Serves agent orchestration and exposes REST endpoints.                |
+
+---
+
+## 🧩 Extensibility Guide
+
+| Feature                        | How to Extend                                               |
+| ------------------------------ | ----------------------------------------------------------- |
+| **Add new agents**             | Define in `agents/` and register in `team_orchestrator.py`. |
+| **Change database backend**    | Update `AGNO_DB_URL` in `.env` or modify `core/memory.py`.  |
+| **Add domain knowledge / RAG** | Integrate Agno vector DB (Qdrant, Weaviate, etc.).          |
+| **Modify guardrails**          | Edit patterns or rules in `core/guardrails.py`.             |
+
+---
+
+## 🖥️ Optional: Web UI (Django + Buildless React)
+
+A minimal **Django app** is included for a lightweight **React dashboard** — no Node.js required.
+
+### Run Backend and Web UI
+
+#### 1️⃣ Start FastAPI backend:
+
+```bash
+uvicorn apps.api.main:app --host 127.0.0.1 --port 8787 --access-log --log-level debug
+```
+
+#### 2️⃣ Start Django web server:
 
 ```bash
 python apps/web/manage.py migrate
 python apps/web/manage.py runserver 9000
 ```
 
-Open http://localhost:9000/
+Open your browser:  
+👉 [http://localhost:9000/](http://localhost:9000/)
 
-### Notes
+---
 
-- React/ReactDOM are imported via ESM from esm.sh, so you don't need Node or bundlers.
-- To change the API base URL, edit `apps/web/dashboard/static/dashboard/app.umd.js`.
+### 🧩 Web UI Notes
 
-Screenshot:
-![alt text](image.png)
+- React and ReactDOM are imported **directly from esm.sh**, so **no bundling or Node.js** is needed.
+- To change the backend API endpoint, edit:
+  ```
+  apps/web/dashboard/static/dashboard/app.umd.js
+  ```
+
+**Screenshot Example:**
+![Web UI Dashboard](image.png)
+
+---
+
+## 🧱 Folder Structure
+
+```
+agno_finance_agents/
+│
+├── agents/                 # Individual agent definitions (equity, research, orchestration)
+├── core/                   # Core infrastructure: config, logging, memory, prompts, guardrails
+├── tools/                  # Utility functions (e.g., finance_tools.py)
+├── apps/                   # API (FastAPI) and Web (Django) entry points
+├── requirements.txt        # Dependency list
+├── .env.example            # Sample environment variables
+└── README.md               # You are here
+```
+
+---
+
+## 🧩 Troubleshooting
+
+| Issue                      | Cause                                 | Fix                                 |
+| -------------------------- | ------------------------------------- | ----------------------------------- |
+| `ModuleNotFoundError`      | Virtual environment not activated     | Run `.\.venv\Scriptsctivate`        |
+| `Invalid API Key`          | Missing or incorrect `OPENAI_API_KEY` | Check `.env` contents               |
+| `sqlite3.OperationalError` | DB file missing or locked             | Delete `agno_memory.db` and restart |
+| `Port already in use`      | Another service on port 8787          | Change port using `--port 8788`     |
+
+---
+
+## 📜 License
+
+**MIT License** — free for personal and commercial use.
+
+---
+
+## 🧩 Summary
+
+✅ **Multi-Agent Collaboration** – Modular AI design  
+✅ **Persistent Memory** – Context-aware session storage  
+✅ **Guardrails** – Safety, validation, and compliance  
+✅ **ReAct Reasoning** – Explainable and iterative logic  
+✅ **Production-Ready** – Built for clarity, maintainability, and demonstration excellence
